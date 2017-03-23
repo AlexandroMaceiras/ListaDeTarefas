@@ -1,0 +1,115 @@
+﻿@model ListaDeTarefas.Models.ListaViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>View1</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Lista", "Criar")
+</p>
+
+@Model.Introducao
+@using (Html.BeginForm("BuscarLista", "ListaView"))
+{
+    <div>
+        Buscar:
+        <input type="text" name="termo" />
+        <input type="submit" name="buscar" />
+    </div>
+}
+<br />
+<table class="table" border="0">
+    <tr>
+        <td>
+            <table class="table">
+                <tr>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        Nome da Lista
+                    </th>
+                    <th>
+                        Ativa
+                    </th>
+                    <th>
+                        Prazo
+                    </th>
+                    <th>
+                        Tarefas
+                    </th>
+                </tr>
+                @if (Model.Listas.Count > 0)
+                {
+                    foreach (var item in Model.Listas)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Usuario.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nome)
+                            </td>
+                            <td>
+                                <center>
+                                    @Html.DisplayFor(modelItem => item.Ativa)
+                                </center>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Prazo)
+                            </td>
+                            <td>
+                                <center>
+                                    @Html.DisplayFor(modelItem => item.Tarefas.Count)
+                               </center>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+        <td>
+            <table class="table">
+                <tr>
+                    <th>
+                        Tarefas Ativas
+                    </th>
+                </tr>
+                @foreach (var item in Model.TarefasAtivas)
+                {
+                    <tr>
+                        <td>
+                            <center>
+                                @item.ToString()
+                            </center>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </td>
+        <td>
+            <table class="table">
+                <tr>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+                @if (Model.Listas.Count > 0)
+                {
+                    foreach (var item in Model.Listas)
+                    {
+                        <tr>
+                            <td>
+                                @Html.ActionLink("Editar", "Edit", new { id = item.ListaId }) |
+                                @Html.ActionLink("Detalhes", "Details", new { id = item.ListaId }) |
+                                @Html.ActionLink("Deletar", "Delete", new { id = item.ListaId })
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </td>
+    </tr>
+</table>

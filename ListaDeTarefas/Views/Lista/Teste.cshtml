@@ -1,0 +1,33 @@
+﻿@model IEnumerable<ListaDeTarefas.Models.Lista>
+@{
+    ViewBag.Title = "Teste";
+}
+
+<h2>Teste, View sendo carregada sem existir controller!!!</h2>
+
+<h3> Outro teste dentro deste: 
+    Chamando a Partial TestePart restrita a ser chamada de dentro de outra View como agora</h3>
+<br />
+------------------------------------------------------------
+<br />
+Chamando o TestePart com Action
+@Html.Action("TestePart")
+------------------------------------------------------------
+<br />
+Chamando o TestePartial com Action
+@Html.Action("TestePartial")
+------------------------------------------------------------
+<br />
+Chamando o TestePart com RenderAction
+@{
+    Html.RenderAction("TestePart");
+}
+------------------------------------------------------------
+<br />
+Chamando o TestePartial com RenderAction
+@{
+    Html.RenderAction("TestePartial");
+}
+------------------------------------------------------------
+<br />
+<h3> Fim da Partial TestePart</h3>

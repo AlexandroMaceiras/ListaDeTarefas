@@ -1,0 +1,74 @@
+﻿@model ListaDeTarefas.Models.ListaViewModel2
+
+@{
+    ViewBag.Title = "OutroListView";
+}
+
+<h2>OutroListView Usando ListaViewModel2</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Lista", "Create")
+</p>
+<br />
+@using (Html.BeginForm("BuscarLista", "ListaView"))
+{
+    <div> Buscar Listas:
+        <input type="text" name="termo" />
+        <input type="submit" name="buscar" />
+    </div>
+}
+<br />
+
+<table class="table">
+    <tr>
+        <th>
+            @Model.Introducao
+        </th>
+    </tr>
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Nome da Lista
+        </th>
+        <th>
+            Ativa
+        </th>
+        <th>
+            Prazo
+        </th>
+        <th>
+            Tarefas
+        </th>
+    </tr>
+    @*if (Model.Listas.Count > 0)
+    {*@
+        @foreach (var item in Model.Listas)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ativa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prazo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tarefas.Count)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ListaId }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.ListaId }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.ListaId })
+                </td>
+            </tr>
+        }
+    @*}*@
+
+</table>

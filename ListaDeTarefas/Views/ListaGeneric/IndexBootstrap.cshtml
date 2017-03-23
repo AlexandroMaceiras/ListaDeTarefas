@@ -1,0 +1,224 @@
+﻿@using GridMvc.Html
+@using GridMvc.Sorting
+@model IEnumerable<ListaDeTarefas.Models.Lista>
+
+@{
+    ViewBag.Title = "ListaBootstrap";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<br /><br />
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <div id="IdCidades" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h2>Listas usando Generic</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Lista", "Create")
+
+</p>
+<br />
+@using (Html.BeginForm("IndexBootstrap", "ListaGeneric"))
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    Buscar Listas:
+                </td>
+                <td>
+                    <input type="text" name="termo" />
+                </td>
+                <td>
+                    <input type="submit" name="busca" />
+                </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                    @Html.Action("QuantidadePorPagina")
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<br />
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" />
+<!-- Este css dá conflito e faz as janelinhas de filtro do grid ficarem desalinhadas com o símbolo de filtro-->
+<!--    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" /> -->
+    <script src="@Url.Content("~/Scripts/jquery-1.10.2.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"> </script>
+    <script src="@Url.Content("~/Scripts/gridmvc.lang.ptbr.js")"></script>
+
+    <title>IndexBootstrap com Grid.MVC</title>
+</head>
+<body>
+    <h1>IndexBootstrap com Grid.MVC</h1>
+    <hr />
+<div id="supergrid" style="width: 100%;">
+    @if (Model.Count() > 0)
+    {
+        @Html.Grid(Model).SetLanguage("ptbr").Columns(columns =>
+   {
+       columns.Add(c => c.Usuario.Email).Titled("E-mail").SetWidth(50); //Para adicionar texto na coluna: //.RenderValueAs(d =>@<b>teste</b>);
+       columns.Add(c => c.Nome).Titled("Nome").SetWidth(50);
+       columns.Add(c => c.Ativa).Titled("Ativo");
+       columns.Add(c => c.Prazo).Titled("Prazo")
+           .Format("{0:dd/MM/yyyy}")
+           .SetWidth(110);
+       columns.Add(c => c.Tarefas.Count).Titled("Tarefas");
+       columns.Add(c => c.TarefasAtivas).Titled("Tarefas Ativas");
+       //columns.Add()
+       //    .Encoded(false)
+       //    .Sanitized(false)
+       //    //.SetWidth(30)
+       //    .RenderValueAs(c => Html.ActionLink("Editar", "Edit", new {id = c.ListaId}));
+       columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+           //.SetWidth(30)
+           .RenderValueAs(c => Html.ActionLink("Detalhes", "Details", new { id = c.ListaId }));
+       columns.Add()
+   .Encoded(false)
+   .Sanitized(false)
+   //.SetWidth(30)
+   .RenderValueAs(c => Html.ActionLink("Deletar", "Delete", new { id = c.ListaId }));
+       columns.Add()
+           .Encoded(false)
+           .Sanitized(false)
+       //.SetWidth(30)
+       //.RenderValueAs(c => Html.ActionLink("Deletar", "Delete", new {id = c.ListaId}));
+       .RenderValueAs(d => Html.ActionLink("Editar", "EditBootstrap", new { id = d.ListaId }, new { @class = "modal-link" }));
+
+   }).WithPaging(3).Sortable(true).Filterable(true).WithMultipleFilters()
+}
+else
+{
+        <font color='red'><i>Nenhuma item com </i></font><b>@ViewBag.Erro</b><font color='red'><i> foi encontrado!</i></font>
+}
+
+</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+         aria-labelledby="myModal2Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModal2Label">
+                        Editar
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    Carregando...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal">
+                        Fechar
+                    </button>
+                    @*<button type="submit" value="search" class="btn btn-primary">
+                        Continuar
+                    </button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+        <div class="container">
+            <h2>Activate Modal with JavaScript</h2>
+            <!-- Trigger the modal with a button -->
+            <button type="button" class="btn btn-info btn-lg" id="myBtn">Open Modal</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="myModal" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+        $("#myModal").modal();
+    });
+});
+        </script>
+
+
+
+
+
+
+
+    <script type="text/javascript">
+        //this script reset modal each time when you click on the link:
+        $(function () {
+            $(".modal-link").click(function (event) {
+                event.preventDefault();
+                $('#myModal').removeData("modal");
+                $('#myModal').modal({ remote: $(this).attr("href") });
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        //Traduz a frase do título onmouseover do filtro da coluna de "Filter this column" para português e contendo o nome da coluna.
+        try
+        {
+            for (i = 1; i <= document.getElementById("supergrid").getElementsByTagName("span").length-3; i++)
+            {
+                document.getElementById("supergrid").getElementsByTagName("div")[i*2]
+                    .getElementsByTagName("span")[0].setAttribute("title", "Filtrar a coluna " + document.getElementById("supergrid").getElementsByTagName("div")[i*2+1].textContent + " !");
+            }
+        }
+        catch(e)
+        {
+            alert(e.toString());
+        }
+        //alert('passou2');
+    </script>
+</body>
+</html>

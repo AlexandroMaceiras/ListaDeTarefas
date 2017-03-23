@@ -1,0 +1,58 @@
+﻿@model ListaDeTarefas.Models.Lista
+
+@{
+    ViewBag.Title = "Detalhes da Lista";
+}
+
+<h2>Detalhes da Lista</h2>
+
+<div>
+    <h4>Lista</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome) da Lista
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prazo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prazo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tarefas)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tarefas.Count)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.ListaId }) |
+    @Html.ActionLink("Voltar para Lista", "Index")
+</p>

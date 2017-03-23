@@ -1,0 +1,53 @@
+﻿@model ListaDeTarefas.Models.Usuario
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<p>
+    @Html.ActionLink("Criar Novo Login", "../Usuario/Create")
+</p>
+
+@using (Html.BeginForm("LogForm"))
+{
+    @Html.AntiForgeryToken()
+    
+    if (!HttpContext.Current.User.Identity.IsAuthenticated)
+    {
+        @Html.ValidationSummary(true)
+        <div>
+            <table>
+                <tr>
+                    <td>Usuário</td>
+                    <td>@Html.EditorFor(model => model.Email) @Html.ValidationMessageFor(model => model.Email)</td>
+                </tr>
+                <tr>
+                    <td>Senha</td>
+                    <td>@Html.EditorFor(model => model.Senha) @Html.ValidationMessageFor(model => model.Senha)</td>
+                </tr>
+                <tr>
+                    <td>
+                        <br />
+                        <input type="submit" value="Logar" name="action:Login" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        O usuário <b>@HttpContext.Current.User.Identity.Name</b> está logado.<p />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fazer Logout - <input type="submit" value="Logout" name="action:Logout" /></td>
+                </tr>
+            </table>
+        </div>
+    }
+}

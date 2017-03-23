@@ -1,0 +1,196 @@
+﻿@model IEnumerable<ListaDeTarefas.Models.Lista>
+
+@{
+    ViewBag.Title = "Lista";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<br /><br />
+
+<div>
+    <table>
+        <tr>
+            <td>
+                <div id="IdCidades" />
+            </td>
+        </tr>
+    </table>
+</div>
+
+<h2>Listas usando Generic</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Lista", "Create")
+
+</p>
+<br />
+@using (Html.BeginForm("Index", "ListaGeneric"))
+{
+    <div>
+        <table>
+            <tr>
+                <td>
+                    Buscar Listas:
+                </td>
+                <td>
+                    <input type="text" name="termo" />
+                </td>
+                <td>
+                    <input type="submit" name="busca" />
+                </td>
+                <td>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td>
+                    @Html.Action("QuantidadePorPagina")
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+<br />
+
+@if (Model.Count() > 0)
+{
+    <table class="table" border="0">
+        <tr>
+            <th>
+                @ViewBag.Introducao
+            </th>
+        <tr>
+        <tr>
+            <th>
+                @if (ViewBag.flagEmail == 1) { ViewBag.flagEmail = "↓"; } else if (ViewBag.flagEmail == 0) { ViewBag.flagEmail = "↑"; }
+                @Html.ActionLink("Usuário (" + Html.DisplayNameFor(model => model.Usuario.Email).ToHtmlString() + ")", "Index", new { ordem = ViewBag.UsuarioOrdem }) @ViewBag.flagEmail @*Html.DisplayNameFor(model => model.Usuario.Email)*@
+            </th>
+            <th>
+                @if (ViewBag.flagNome == 1) { ViewBag.flagNome = "↓"; } else if (ViewBag.flagNome == 0) { ViewBag.flagNome = "↑"; }
+                @Html.ActionLink((Html.DisplayNameFor(model => model.Nome) + " da Lista"), "Index", new { ordem = ViewBag.NomeOrdem }) @ViewBag.flagNome @*Html.DisplayNameFor(model => model.Nome) da Lista*@
+            </th>
+            <th>
+                @if (ViewBag.flagAtiva == 1) { ViewBag.flagAtiva = "↓"; } else if (ViewBag.flagAtiva == 0) { ViewBag.flagAtiva = "↑"; }
+                @Html.ActionLink((Html.DisplayNameFor(model => model.Ativa).ToHtmlString()), "Index", new { ordem = ViewBag.AtivaOrdem }) @ViewBag.flagAtiva @*Html.DisplayNameFor(model => model.Ativa)*@
+            </th>
+            <th>
+                @if (ViewBag.flagPrazo == 1) { ViewBag.flagPrazo = "↓"; } else if (ViewBag.flagPrazo == 0) { ViewBag.flagPrazo = "↑"; }
+                @Html.ActionLink((Html.DisplayNameFor(model => model.Prazo).ToHtmlString()), "Index", new { ordem = ViewBag.PrazoOrdem }) @ViewBag.flagPrazo @*Html.DisplayNameFor(model => model.Prazo)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Tarefas) @*Html.ActionLink((Html.DisplayNameFor(model => model.Tarefas).ToHtmlString()), "Index", new { ordem = ViewBag.TarefasOrdem })*@
+            </th>
+            <th>
+                Tarefas Ativas @*Html.DisplayNameFor(model => model.TarefasAtivas)*@
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario.Email)
+                </td>
+                @*<td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>*@
+@using (Html.BeginForm("Edit", "Lista", new { id = item.ListaId }))
+{
+    <td class="control-label col-md-2">
+        @Html.EditorFor(modelItem => item.Nome)
+        <input type="submit" value="Save" class="btn btn-default"/>
+    </td>
+}
+                <td>
+                    <center>
+                        @Html.DisplayFor(modelItem => item.Ativa)
+                    </center>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prazo)
+                </td>
+                <td>
+                    <center>
+                        @Html.DisplayFor(modelItem => item.Tarefas.Count)
+                    </center>
+                </td>
+                <td>
+                    <center>
+                        @Html.DisplayFor(modelItem => item.TarefasAtivas)
+                    </center>
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Edit", new { id = item.ListaId }) |
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.ListaId }) |
+                    @Html.ActionLink("Deletar", "Delete", new { id = item.ListaId })
+                </td>
+            </tr>
+        }
+
+        @if (ViewBag.Anterior || ViewBag.Proxima)
+        {
+            <tr>
+                <th></th>
+                <th>
+                    <center>
+                        <table border="0">
+                            <tr>
+                                @if (ViewBag.Anterior == true)
+                                {
+                                    <td>
+                                        <b>
+                                            @Html.ActionLink("Anterior", "IndexPagina", "ListaGeneric", new { pagina = (ViewBag.PaginaAtual) - 1, ordem = ViewBag.Ordem }, null)
+                                        </b>
+                                    </td>
+                                }
+                                else
+                                {
+
+                                    <td>Anterior</td>
+                                }
+                                <td>|</td>
+                                @if (ViewBag.Proxima == true)
+                                {
+                                    <td>
+                                        <b>
+                                            @Html.ActionLink("Próxima", "IndexPagina", "ListaGeneric", new { pagina = (ViewBag.PaginaAtual) + 1, ordem = ViewBag.Ordem }, null)
+                                        </b>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>Próxima</td>
+                                }
+                            </tr>
+                        </table>
+                    </center>
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <table class="table" border="0">
+        <tr>
+            <th>
+                @ViewBag.Introducao
+            </th>
+        <tr>
+        <tr>
+            <td>
+                @if (@ViewBag.Erro != null)
+                {
+                    <font color='red'><i>Nenhuma lista com </i></font><b>@ViewBag.Erro</b><font color='red'><i> foi encontrada!</i></font>
+                }
+                else
+                {
+                    <font color='red'><i>Nenhuma lista foi encontrada!</i></font>
+                }
+            </td>
+            <td></td>
+        </tr>
+    </table>
+}

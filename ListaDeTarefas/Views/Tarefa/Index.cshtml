@@ -1,0 +1,50 @@
+﻿@model IEnumerable<ListaDeTarefas.Models.Tarefa>
+
+@{
+    ViewBag.Title = "Tarefas";
+}
+
+<h2>Tarefas</h2>
+
+<p>
+    @Html.ActionLink("Criar Nova Tarefa", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome) da Tarefa
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Concluida)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lista.Nome) da Lista
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Concluida)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lista.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.TarefaId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.TarefaId }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.TarefaId })
+        </td>
+    </tr>
+}
+
+</table>

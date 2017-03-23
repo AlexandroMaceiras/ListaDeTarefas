@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - By Alexandro</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        @*<div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            *@
+                @Html.ActionLink("Lista de Tarefas", "IndexBootstrap", "ListaGeneric", null, new { @class = "navbar-brand" })
+            @*</div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Listas", "Index", "Lista")</li>
+                    <li>@Html.ActionLink("Tarefas", "Index", "Tarefa")</li>
+                    <li>@Html.ActionLink("Usuários", "Index", "Usuario")</li>
+                    <li>@Html.ActionLink("Oi Mundo", "Teste", "OiMundo")</li>
+                    <li>@Html.ActionLink("ViewModel Ex1.", "Index", "ListaView")</li>
+                    <li>@Html.ActionLink("ViewModel Ex2.", "OutroListaView", "ListaView")</li>
+                    <li>@Html.ActionLink("Teste Sem Ctrl", "Teste", "Lista")</li>
+                    <li>@Html.ActionLink("AREATESTE", "Index", "Home", new { area = "AreaTeste" }, null)</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>*@
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr width="50%" align="left" />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Lista de Tarefas.</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

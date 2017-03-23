@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ListaDeTarefas.Models.Usuario>
+
+@{
+    ViewBag.Title = "Usuários";
+}
+
+<h2>Usuários</h2>
+@HtmlHelper.ClientValidationEnabled
+<p>
+    @Html.ActionLink("Criar Novo","Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Email) do Usuário
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ativo)
+        <th>
+            @Html.DisplayNameFor(model => model.Lista).ToString()s
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Senha)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ativo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lista.Count)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.UsuarioId }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.UsuarioId }) |
+            @Html.ActionLink("Deletar", "Delete", new { id=item.UsuarioId })
+        </td>
+    </tr>
+}
+
+</table>

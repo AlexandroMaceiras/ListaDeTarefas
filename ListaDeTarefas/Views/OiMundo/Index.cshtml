@@ -1,0 +1,13 @@
+﻿@{
+    ViewBag.Title = "OiMundo";
+}
+
+<h2>OiMundo</h2>
+<br />
+Aqui eu faço um foreach sem declarar de onde vem o model! Ele é implícito no nome da View com o Controler chamado OiMundo!
+<br />
+
+@foreach(var t in Model)
+{
+    <h4>@t.Nome</h4>
+}

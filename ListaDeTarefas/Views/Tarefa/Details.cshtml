@@ -1,0 +1,50 @@
+﻿@model ListaDeTarefas.Models.Tarefa
+
+@{
+    ViewBag.Title = "Detalhes da Tarefa";
+}
+
+<h2>Detalhes da Tarefa</h2>
+
+<div>
+    <h4>Tarefa</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lista.Nome) da Lista
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lista.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome) da Tarefa
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Concluida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Concluida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.TarefaId }) |
+    @Html.ActionLink("Volar para Lista", "Index")
+</p>
